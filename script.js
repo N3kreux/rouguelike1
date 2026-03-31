@@ -16,24 +16,33 @@ let map = [
   ['#','#','#','#','#','#','#']
 ];
 
-// Render the map and player
+// Render the map and player with <span> for styling
 function render() {
   let output = "";
 
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
+      let char = map[y][x];
+      let spanClass = "";
+
       if (x === player.x && y === player.y) {
-        output += "@"; // player
+        char = "@";
+        spanClass = "player"; // red, danger
       } else if (x === exit.x && y === exit.y) {
-        output += ">"; // exit
-      } else {
-        output += map[y][x];
+        char = ">";
+        spanClass = "exit"; // creepy red
+      } else if (char === "#") {
+        spanClass = "wall"; // dark wall
+      } else if (char === ".") {
+        spanClass = "floor"; // normal floor
       }
+
+      output += `<span class="${spanClass}">${char}</span>`;
     }
-    output += "\n";
+    output += "<br>";
   }
 
-  game.textContent = output;
+  game.innerHTML = output;
 }
 
 // Handle player movement
@@ -53,8 +62,8 @@ document.addEventListener("keydown", (e) => {
 
     // Check if player reached exit
     if (player.x === exit.x && player.y === exit.y) {
-      alert("YOU ESCAPED, OR DID YOU?");
-      // Later: replace alert with corrupted/glitch effect
+      alert("YOU ESCAPED… OR DID YOU?");
+      // Later: replace alert with glitchy effect
     }
   }
 
