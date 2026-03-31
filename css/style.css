@@ -1,0 +1,10 @@
+body {
+  background: black;
+  color: #00ff9f;
+  font-family: monospace;
+  font-size: 20px;
+}
+
+#game {
+  line-height: 1.2;
+}
