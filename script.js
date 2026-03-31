@@ -16,7 +16,9 @@ function render() {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
       if (x === player.x && y === player.y) {
-        output += "@";
+        output += "%c@"; // player
+      } else if (x === exit.x && y === exit.y) {
+        output += "%c>"; // exit
       } else {
         output += map[y][x];
       }
@@ -39,9 +41,17 @@ document.addEventListener("keydown", (e) => {
   if (map[newY][newX] !== "#") {
     player.x = newX;
     player.y = newY;
+
+    // Check if player reached exit
+    if (player.x === exit.x && player.y === exit.y) {
+      alert("YOU ESCAPED… OR DID YOU?");
+      // Later: replace alert with corrupted/glitchy effect
+    }
   }
 
   render();
 });
 
 render();
+
+let exit = { x: 5, y: 3 }; // example position
